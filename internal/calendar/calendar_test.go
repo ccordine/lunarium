@@ -103,13 +103,61 @@ func TestEidAlAdhaAppearsOnFirstFestivalDay(t *testing.T) {
 	t.Fatal("Eid al-Adha missing from annual index")
 }
 
-func TestObservanceIndexHasAllThreeTraditions(t *testing.T) {
+func TestObservanceIndexHasAllFiveTraditions(t *testing.T) {
 	index := BuildObservanceIndex(2026)
-	minimum := map[Tradition]int{Christianity: 25, Judaism: 25, Islam: 18}
+	minimum := map[Tradition]int{
+		Christianity: 25,
+		Judaism:      25,
+		Islam:        18,
+		Polytheist:   8,
+		AncientWorld: 100,
+	}
 	for tradition, want := range minimum {
 		if index.Counts[tradition] < want {
 			t.Errorf("%s count = %d, want at least %d", tradition, index.Counts[tradition], want)
 		}
+		if len(index.Coverage[tradition]) == 0 {
+			t.Errorf("%s has no index coverage description", tradition)
+		}
+	}
+}
+
+func TestObservanceIndexKeepsNativeOnlyRecordsUndated(t *testing.T) {
+	index := BuildObservanceIndex(2026)
+	seenCatalogOnly := false
+	datedAfterCatalogOnly := false
+	for _, event := range index.Observances {
+		if event.CatalogOnly {
+			seenCatalogOnly = true
+			if event.Date != "" || event.NativeDateLabel == "" || event.ProjectionStatus == "" {
+				t.Errorf("catalog-only event invents a date or lacks native projection metadata: %+v", event)
+			}
+			continue
+		}
+		if seenCatalogOnly {
+			datedAfterCatalogOnly = true
+		}
+	}
+	if !seenCatalogOnly {
+		t.Fatal("annual index has no native-date-only ancient records")
+	}
+	if datedAfterCatalogOnly {
+		t.Fatal("dated events must sort before catalog-only native records")
+	}
+}
+
+func TestObservanceIndexCatalogIDsHaveOneGlobalIdentity(t *testing.T) {
+	identities := make(map[string]string)
+	for _, event := range BuildObservanceIndex(2026).Observances {
+		if event.CatalogID == "" {
+			t.Errorf("observance %q has an empty CatalogID", event.Name)
+			continue
+		}
+		identity := event.Name + "|" + event.CalendarCorpus
+		if previous, exists := identities[event.CatalogID]; exists && previous != identity {
+			t.Errorf("catalog ID %q collides across %q and %q", event.CatalogID, previous, identity)
+		}
+		identities[event.CatalogID] = identity
 	}
 }
 

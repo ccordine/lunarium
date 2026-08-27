@@ -45,10 +45,10 @@ func TestBuildHebrewMonthElul5786(t *testing.T) {
 	if len(month.Days) != 29 {
 		t.Fatalf("Elul days = %d, want 29", len(month.Days))
 	}
-	if month.Previous != (MonthReference{Year: 5786, Month: 5, Label: "Av 5786"}) {
+	if month.Previous == nil || *month.Previous != (MonthReference{Year: 5786, Month: 5, Label: "Av 5786"}) {
 		t.Fatalf("previous = %#v", month.Previous)
 	}
-	if month.Next != (MonthReference{Year: 5787, Month: 7, Label: "Tishrei 5787"}) {
+	if month.Next == nil || *month.Next != (MonthReference{Year: 5787, Month: 7, Label: "Tishrei 5787"}) {
 		t.Fatalf("next = %#v", month.Next)
 	}
 
@@ -168,15 +168,49 @@ func TestBuildHebrewMonthRejectsAdarIIInCommonYear(t *testing.T) {
 	}
 }
 
+func TestBuildHebrewMonthStopsNavigationAtSupportedCivilBounds(t *testing.T) {
+	firstHebrew := jdToHebrew(gregorianToJD(dateAt(1900, time.January, 1)))
+	first, err := BuildHebrewMonth(firstHebrew.Year, firstHebrew.Month, DefaultLocation)
+	if err != nil {
+		ref := nextHebrewMonthReference(firstHebrew.Year, firstHebrew.Month)
+		first, err = BuildHebrewMonth(ref.Year, ref.Month, DefaultLocation)
+	}
+	if err != nil {
+		t.Fatalf("first supported Hebrew month: %v", err)
+	}
+	if first.Previous != nil {
+		t.Fatalf("first supported Hebrew month exposes an out-of-range previous reference: %#v", first.Previous)
+	}
+	if first.StartDate < "1900-01-01" || first.EndDate > "2100-12-31" {
+		t.Fatalf("first supported Hebrew month range = %s through %s", first.StartDate, first.EndDate)
+	}
+
+	lastHebrew := jdToHebrew(gregorianToJD(dateAt(2100, time.December, 31)))
+	last, err := BuildHebrewMonth(lastHebrew.Year, lastHebrew.Month, DefaultLocation)
+	if err != nil {
+		ref := previousHebrewMonthReference(lastHebrew.Year, lastHebrew.Month)
+		last, err = BuildHebrewMonth(ref.Year, ref.Month, DefaultLocation)
+	}
+	if err != nil {
+		t.Fatalf("last supported Hebrew month: %v", err)
+	}
+	if last.Next != nil {
+		t.Fatalf("last supported Hebrew month exposes an out-of-range next reference: %#v", last.Next)
+	}
+	if last.StartDate < "1900-01-01" || last.EndDate > "2100-12-31" {
+		t.Fatalf("last supported Hebrew month range = %s through %s", last.StartDate, last.EndDate)
+	}
+}
+
 func TestBuildGregorianMonthIncludesUniformPeriodMetadata(t *testing.T) {
 	month := BuildMonth(2026, time.August, DefaultLocation)
 	if month.CalendarSystem != GregorianCalendar || month.StartDate != "2026-08-01" || month.EndDate != "2026-08-31" {
 		t.Fatalf("Gregorian period metadata = %#v", month)
 	}
-	if month.Previous != (MonthReference{Year: 2026, Month: 7, Label: "July 2026"}) {
+	if month.Previous == nil || *month.Previous != (MonthReference{Year: 2026, Month: 7, Label: "July 2026"}) {
 		t.Fatalf("previous = %#v", month.Previous)
 	}
-	if month.Next != (MonthReference{Year: 2026, Month: 9, Label: "September 2026"}) {
+	if month.Next == nil || *month.Next != (MonthReference{Year: 2026, Month: 9, Label: "September 2026"}) {
 		t.Fatalf("next = %#v", month.Next)
 	}
 }

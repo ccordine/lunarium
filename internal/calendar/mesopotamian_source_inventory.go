@@ -1,0 +1,165 @@
+package calendar
+
+const urIIITummalSource = "https://cdli.earth/articles/cdlj/2016-1"
+
+func mesopotamianSourceRecord(
+	id, name, corpus, category, summary, meaning, nativeDate, layer, era, site,
+	projectionKind, projectionStatus, confidence, sourceName, sourceURL, caveat string,
+	elements, texts []string,
+) ancientCatalogRecord {
+	return ancientCatalogRecord{
+		ID:               id,
+		Name:             name,
+		Communities:      []string{"Mesopotamian temple, court, and administrative communities in the cited city and period"},
+		Category:         category,
+		Summary:          summary,
+		Meaning:          meaning,
+		AttestedElements: elements,
+		Texts:            texts,
+		Origin:           "Cuneiform scholarly, ritual, and administrative sources",
+		HistoricalNote:   caveat,
+		CalendarCorpus:   corpus,
+		NativeDateLabel:  nativeDate,
+		AttestationLayer: layer,
+		Era:              era,
+		Site:             site,
+		ProjectionKind:   projectionKind,
+		ProjectionStatus: projectionStatus,
+		DateConfidence:   confidence,
+		AnchorLocation:   site,
+		DayBoundary:      "Evening; local lunisolar calendar unless the source says otherwise",
+		SourceName:       sourceName,
+		SourceURL:        sourceURL,
+	}
+}
+
+var urIIISourceInventoryRecords = []ancientCatalogRecord{
+	mesopotamianSourceRecord(
+		"ur3-great-festival", "Ezem-maḫ · Great Festival at Ur", "Ur III administrative cult calendars", "Ur III major annual festival",
+		"CDLI's synthesis of Ur administrative records identifies the Great Festival as the third major annual festival after Ur's two Akiti cycles.",
+		"Its place in month ten exposes Ur's own annual cult structure rather than a later standard Babylonian calendar.",
+		"Ur month X; ezem-maḫ (Great Festival)", "Ur III administrative records summarized in CDLP 9.0 lines 69–81", "Ur III, late third millennium BCE", "Ur",
+		"city-lunisolar-month-only", "No exact day or Gregorian equivalent is inferred without a selected Ur III year and local calendar reconstruction.", "High annual festival and local month; exact day not supplied by the cited synthesis",
+		"CDLI Preprint 9 · Cults and Prices at the Collapse of the Ur III State", urIIICultSource,
+		"The source identifies three major annual festivals at Ur, but does not provide a full ritual program or exact day for this one.",
+		[]string{"Sacrificial animals required for the festival"}, []string{"Ur III administrative tablets summarized in CDLP 9.0 lines 69–81"},
+	),
+	mesopotamianSourceRecord(
+		"ur3-gazelle-feast", "Gazelle Feast at Ur", "Ur III administrative cult calendars", "Ur III smaller annual festival",
+		"CDLI's Ur calendar synthesis lists a Gazelle Feast among the smaller annual festivals supplied with sacrificial animals.",
+		"The record preserves a named local feast at month resolution without inventing its ceremony.",
+		"Ur month II; Gazelle Feast", "Ur III administrative records summarized in CDLP 9.0 lines 72–81", "Ur III, late third millennium BCE", "Ur",
+		"city-lunisolar-month-only", "Cataloged in Ur's local month only; no exact ancient day or Gregorian recurrence is asserted.", "High named festival and month in the cited synthesis; ritual detail unavailable",
+		"CDLI Preprint 9 · Cults and Prices at the Collapse of the Ur III State", urIIICultSource,
+		"The English animal-name gloss follows the cited CDLI synthesis; it should not be expanded into an unattested ritual narrative.",
+		[]string{"Sacrificial-animal provisioning"}, []string{"Ur III administrative tablets summarized in CDLP 9.0 lines 72–81"},
+	),
+	mesopotamianSourceRecord(
+		"ur3-piglet-feast", "Šeš-da-gu₇ · Piglet Feast at Ur", "Ur III administrative cult calendars", "Ur III smaller annual festival",
+		"CDLI's synthesis lists the šeš-da-gu₇ or Piglet Feast in Ur's third month.",
+		"The feast is retained by its source name and local month rather than reconstructed from the modern gloss.",
+		"Ur month III; šeš-da-gu₇ (Piglet Feast)", "Ur III administrative records summarized in CDLP 9.0 lines 72–81", "Ur III, late third millennium BCE", "Ur",
+		"city-lunisolar-month-only", "Cataloged in Ur's local month only; no exact ancient day or Gregorian recurrence is asserted.", "High named festival and month in the cited synthesis; exact zoological and ritual interpretation is limited",
+		"CDLI Preprint 9 · Cults and Prices at the Collapse of the Ur III State", urIIICultSource,
+		"The translation 'Piglet Feast' follows the cited CDLI article; the entry makes no broader claim about the rite's content.",
+		[]string{"Sacrificial-animal provisioning"}, []string{"Ur III administrative tablets summarized in CDLP 9.0 lines 72–81"},
+	),
+	mesopotamianSourceRecord(
+		"ur3-ubi-bird-feast", "Ubi-bird Feast at Ur", "Ur III administrative cult calendars", "Ur III smaller annual festival",
+		"CDLI's synthesis lists an Ubi-bird Feast in Ur's fourth month.",
+		"The record demonstrates the specificity of the local administrative cult calendar while leaving the animal and rite at the source's resolution.",
+		"Ur month IV; Ubi-bird Feast", "Ur III administrative records summarized in CDLP 9.0 lines 72–81", "Ur III, late third millennium BCE", "Ur",
+		"city-lunisolar-month-only", "Cataloged in Ur's local month only; no exact ancient day or Gregorian recurrence is asserted.", "High named festival and month in the cited synthesis; bird identification and ritual detail remain limited",
+		"CDLI Preprint 9 · Cults and Prices at the Collapse of the Ur III State", urIIICultSource,
+		"The English Ubi-bird label follows CDLI's cautious wording and is not treated as a secure modern species identification.",
+		[]string{"Sacrificial-animal provisioning"}, []string{"Ur III administrative tablets summarized in CDLP 9.0 lines 72–81"},
+	),
+	mesopotamianSourceRecord(
+		"ur3-ninazu-festival", "Festival of Ninazu at Ur", "Ur III administrative cult calendars", "Ur III local deity festival",
+		"CDLI places a named Festival of Ninazu in Ur's sixth month and separately notes Ninazu's cult in month five without a documented festival name there.",
+		"Keeping the month-five cult notice separate from the month-six festival prevents a deity's worship from being inflated into a second feast.",
+		"Ur month VI: Festival of Ninazu; month V has Ninazu cult activity but no documented named festival in the cited passage", "Ur III administrative records summarized in CDLP 9.0 lines 72–81", "Ur III, late third millennium BCE", "Ur",
+		"city-lunisolar-month-only", "Only the month-six named festival is cataloged; no exact day or Gregorian recurrence is inferred.", "High named festival in month VI; month-V activity is explicitly not promoted to a second festival",
+		"CDLI Preprint 9 · Cults and Prices at the Collapse of the Ur III State", urIIICultSource,
+		"The CDLI text explicitly says that no ezem of Ninazu is documented in month five even though the cult was celebrated then.",
+		[]string{"Cult festival associated with Ninazu", "Sacrificial-animal provisioning"}, []string{"Ur III administrative tablets summarized in CDLP 9.0 lines 72–81"},
+	),
+	mesopotamianSourceRecord(
+		"ur3-shulgi-festival", "Festival of Šulgi at Ur", "Ur III administrative cult calendars", "Ur III royal cult festival",
+		"CDLI's synthesis lists a Festival of Šulgi in Ur's eighth month among the smaller annual festivals.",
+		"The festival locates royal cult within the administrative year without assuming a stable program across every reign.",
+		"Ur month VIII; Festival of Šulgi", "Ur III administrative records summarized in CDLP 9.0 lines 72–81", "Ur III, late third millennium BCE", "Ur",
+		"city-lunisolar-month-only", "Cataloged in Ur's local month only; no exact ancient day or Gregorian recurrence is asserted.", "High festival name and month in the cited synthesis; program and chronological development vary",
+		"CDLI Preprint 9 · Cults and Prices at the Collapse of the Ur III State", urIIICultSource,
+		"This administrative attestation does not establish an unchanged empire-wide royal festival.",
+		[]string{"Royal cult festival", "Sacrificial-animal provisioning"}, []string{"Ur III administrative tablets summarized in CDLP 9.0 lines 72–81"},
+	),
+	mesopotamianSourceRecord(
+		"ur3-probable-month-nine-festival", "Probable Unnamed Festival in Ur Month IX", "Ur III administrative cult calendars", "Probable Ur III local festival",
+		"CDLI says there was probably a festival in Ur's ninth month, while distinguishing that inference from a homonymous šu-eš₅-ša festival known as an Old Babylonian institution.",
+		"The record preserves evidence for a probable place in Ur's cult year without supplying a festival name, deity, or ceremony that the Ur III passage does not establish.",
+		"Ur month IX (iti šu-eš₅-ša); a festival is probable, but its Ur III name and exact day are not established", "CDLP 9.0 lines 75–78, relating a probable Ur month-IX festival to Old Babylonian homonymy and Early Dynastic month-name evidence", "Ur III, late third millennium BCE; earlier and later comparisons remain separate", "Ur",
+		"probable-unnamed-city-month", "Catalog-only: the probable festival is retained at month resolution; no name, rite, exact day, or Gregorian recurrence is invented.", "Moderate to low: CDLI says a month-IX festival was probable, but its identity and continuity with the Old Babylonian homonym are unresolved",
+		"CDLI Preprint 9 · Cults and Prices at the Collapse of the Ur III State", urIIICultSource,
+		"The source explicitly identifies the homonymous šu-eš₅-ša festival as Old Babylonian. Early Dynastic month-name evidence may preserve a tradition, but neither comparison proves an identically named or unchanged Ur III rite.",
+		[]string{}, []string{"CDLP 9.0 lines 75–78", "UET 2, supplement 13 (P250338), cited there as Early Dynastic month-name evidence"},
+	),
+	mesopotamianSourceRecord(
+		"ur3-annunitum-recurring-festivals", "Recurring Festivals of Annunītum at Ur", "Ur III administrative cult calendars", "Ur III recurring local cult festivals",
+		"CDLI reports festivals associated with Annunītum at Ur, probably in each month, and notes their continued occurrence in Ibbi-Suen's reign.",
+		"This recurring dossier belongs to the local lunar cult economy rather than to one annual anniversary.",
+		"Probably each Ur lunar month; exact phase or numbered days not given in the cited synthesis", "Ur III administrative records, including UET 3, 0151 (P136468), summarized in CDLP 9.0 lines 79–81", "Ur III, including Ibbi-Suen year 6 evidence", "Ur",
+		"probable-recurring-local-monthly", "No modern monthly rule is generated because the source says 'probably' each month and does not supply a phase or day algorithm.", "High that Annunītum festivals recurred at Ur; monthly frequency probable rather than certain; exact dates unavailable",
+		"CDLI Preprint 9 · Cults and Prices at the Collapse of the Ur III State", urIIICultSource,
+		"The word 'probably' is retained from the CDLI synthesis; recurrence is not converted into twelve fabricated modern dates.",
+		[]string{"Cult festivals of Annunītum", "Sacrificial-animal provisioning"}, []string{"UET 3, 0151 (P136468)", "Ur III administrative tablets summarized in CDLP 9.0 lines 79–81"},
+	),
+	mesopotamianSourceRecord(
+		"ur3-tummal-festival-dossier", "Tummal Festival / Ninlil Offering Dossier", "Ur III administrative cult calendars", "Reconstructed Ur III agricultural festival dossier",
+		"CDLI scholarship identifies a Tummal festival from clustered livestock disbursements, while emphasizing that the tablets usually do not themselves call those deliveries a festival; a separate dossier securely attests regular offerings to Ninlil at Tummal on varied dates.",
+		"The entry exposes the scholarly reconstruction and the underlying offering evidence instead of presenting a single certain feast day.",
+		"Festival reconstruction: Drehem month VII before Šulgi 47 and month VIII thereafter; Ninlil regular-offering documents occur on varied months and often day 29", "Drehem livestock tablets analyzed by Oh'e and reassessed in CDLJ 2016:1; related Ninlil offerings cataloged in CDLN 2014:6", "Ur III, especially Šulgi through early Šu-Suen evidence", "Tummal and the Drehem administrative archive",
+		"scholarly-reconstruction-native-cycle", "No occurrence is projected: the festival identification is inferential, calendar placement changes, and related regular offerings are not all the same event.", "Moderate festival reconstruction from delivery clustering; high existence of the underlying livestock and Ninlil-offering documents",
+		"CDLI Journal 2016:1 · Synchronization of Drehem, Nippur, and Umma Calendars", urIIITummalSource,
+		"The cited CDLI study states that Drehem tablets usually do not explicitly refer to a festival. The title therefore retains 'dossier,' and the varying Ninlil offerings are not collapsed into one annual date.",
+		[]string{"Live-animal disbursements to Tummal", "Regular offerings to Ninlil in a related dossier"}, []string{"Drehem Ur III administrative tablets", "CDLJ 2016:1 §7.9", "CDLN 2014:6"},
+	),
+}
+
+var bttoFestivalListRecords = []ancientCatalogRecord{
+	mesopotamianSourceRecord(
+		"babylon-ninurta-akitu-nisannu", "Akītu of Ninurta · BTTo Q004806", "Babylonian cult calendar", "Babylonian theological festival notice",
+		"BTTo Q004806 lists an Akītu of Ninurta in its learned explanation of festivals celebrated in Nisannu, glossed in relation to his father Enlil.",
+		"The entry preserves a deity-specific learned correspondence rather than borrowing the public ritual program of Marduk's Babylonian Akītu.",
+		"Nisannu; tablet column iii line 14′, not a numbered festival day", "First-millennium bilingual explanatory tablet", "First millennium BCE", "Babylonia; tablet context",
+		"scholarly-list-month-only", "The source gives a month and a list line, not a day of performance; no Gregorian recurrence is inferred.", "High tablet wording and month; exact day and enacted program unavailable",
+		"ORACC · Babylonian Temple Texts Online Q004806", mesopotamianBTTO,
+		"Q004806 is a scholarly or theological list. Its Ninurta entry does not prove that one detailed public ritual was enacted everywhere or every year.",
+		[]string{"Akītu of Ninurta", "Learned gloss relating Ninurta to Enlil"}, []string{"BTTo Q004806 iii 14′"},
+	),
+	mesopotamianSourceRecord(
+		"babylon-sin-akitu-nisannu", "Akītu of Sîn · BTTo Q004806", "Babylonian cult calendar", "Babylonian theological festival notice",
+		"BTTo Q004806 lists an Akītu of Sîn among Nisannu festivals and associates it in the parallel explanation with Ninurta as net of the gods.",
+		"The bilingual equation records learned temple theology while leaving actual festival procedure unknown.",
+		"Nisannu; tablet column iii line 16′, not a numbered festival day", "First-millennium bilingual explanatory tablet", "First millennium BCE", "Babylonia; tablet context",
+		"scholarly-list-month-only", "The source gives a month and a list line, not a day of performance; no Gregorian recurrence is inferred.", "High tablet wording and month; exact day and enacted program unavailable",
+		"ORACC · Babylonian Temple Texts Online Q004806", mesopotamianBTTO,
+		"The source is a bilingual scholarly list, not a continuous liturgy; the Ninurta gloss is retained without recasting Sîn's entry as a second Ninurta festival.",
+		[]string{"Akītu of Sîn", "Learned parallel explanation involving Ninurta"}, []string{"BTTo Q004806 iii 16′"},
+	),
+	mesopotamianSourceRecord(
+		"babylon-ishtar-ululu-nisannu", "Ulūlu of Ishtar · BTTo Q004806", "Babylonian cult calendar", "Babylonian theological festival notice",
+		"Within Q004806's Nisannu list, Ulūlu is named as a festival of Ishtar.",
+		"Treating Ulūlu here as the listed festival name, not silently as the later month Ulūlu, preserves the tablet's own Nisannu heading.",
+		"Nisannu; Ulūlu of Ishtar at tablet column iii line 27′; no numbered festival day stated", "First-millennium bilingual explanatory tablet", "First millennium BCE", "Babylonia; tablet context",
+		"scholarly-list-month-only", "The source gives a Nisannu heading and a list line, not a performance day; no Gregorian recurrence is inferred.", "High festival name, Ishtar attribution, and Nisannu list context; exact day and ritual unavailable",
+		"ORACC · Babylonian Temple Texts Online Q004806", mesopotamianBTTO,
+		"Ulūlu is retained as the festival name in this Nisannu list and is not confused with a civil-month conversion. Q004806 remains a scholarly/theological witness.",
+		[]string{"Ulūlu festival of Ishtar"}, []string{"BTTo Q004806 iii 27′"},
+	),
+}
+
+func init() {
+	ancientCatalogRecords = append(ancientCatalogRecords, urIIISourceInventoryRecords...)
+	ancientCatalogRecords = append(ancientCatalogRecords, bttoFestivalListRecords...)
+}

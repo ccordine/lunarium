@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:astronomy": "node scripts/test-astronomy.mjs",
+    "test:navigation": "node scripts/test-navigation.mjs"
   },
   "dependencies": {
+    "astronomy-engine": "2.1.19",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
@@ -17,4 +20,3 @@
     "vite": "^7.1.3"
   }
 }
-

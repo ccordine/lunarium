@@ -17,8 +17,12 @@ const (
 func observancesForDate(date time.Time) []Observance {
 	events := make([]Observance, 0)
 	events = append(events, christianObservances(date)...)
+	events = append(events, imperialChristianObservances(date)...)
 	events = append(events, jewishObservances(date)...)
 	events = append(events, islamicObservances(date)...)
+	events = append(events, romanObservances(date)...)
+	events = append(events, atticObservances(date)...)
+	events = append(events, modernPolytheistObservances(date)...)
 	sort.SliceStable(events, func(i, j int) bool {
 		if events[i].Tradition == events[j].Tradition {
 			if events[i].Historical != events[j].Historical {
@@ -33,6 +37,7 @@ func observancesForDate(date time.Time) []Observance {
 
 func baseObservance(name string, tradition Tradition, communities []string, category, summary, meaning string, practices, scripture []string, sourceName, sourceURL string) Observance {
 	return Observance{
+		CatalogID:   string(tradition) + "-" + slug(name),
 		Name:        name,
 		Tradition:   tradition,
 		Communities: communities,
@@ -47,7 +52,10 @@ func baseObservance(name string, tradition Tradition, communities []string, cate
 }
 
 func singleOccurrence(event Observance, date time.Time) Observance {
-	event.ID = slug(event.Name) + "-" + date.Format("2006-01-02")
+	if event.CatalogID == "" {
+		event.CatalogID = string(event.Tradition) + "-" + slug(event.Name)
+	}
+	event.ID = event.CatalogID + "-" + date.Format("2006-01-02")
 	event.Date = date.Format("2006-01-02")
 	event.DurationDays = 1
 	event.DayIndex = 1
@@ -55,7 +63,10 @@ func singleOccurrence(event Observance, date time.Time) Observance {
 }
 
 func spanOccurrence(event Observance, current, start time.Time, duration int) Observance {
-	event.ID = slug(event.Name) + "-" + start.Format("2006-01-02")
+	if event.CatalogID == "" {
+		event.CatalogID = string(event.Tradition) + "-" + slug(event.Name)
+	}
+	event.ID = event.CatalogID + "-" + start.Format("2006-01-02")
 	event.Date = start.Format("2006-01-02")
 	event.EndDate = start.AddDate(0, 0, duration-1).Format("2006-01-02")
 	event.DurationDays = duration

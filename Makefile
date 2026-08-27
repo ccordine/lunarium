@@ -12,6 +12,8 @@ build:
 
 test:
 	GOCACHE=/tmp/lunarium-go-cache go test ./...
+	cd web && npm run test:navigation
+	cd web && npm run test:astronomy
 	cd web && npm run build
 
 dev-api:

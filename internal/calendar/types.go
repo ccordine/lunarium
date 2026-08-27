@@ -10,6 +10,12 @@ const (
 	Christianity Tradition = "christianity"
 	Judaism      Tradition = "judaism"
 	Islam        Tradition = "islam"
+	Polytheist   Tradition = "polytheist"
+	AncientWorld Tradition = "ancient"
+	// Compatibility name used by the historical-calendar implementations. The
+	// corpus field keeps Roman, Attic, Egyptian, Mesopotamian, and Ugaritic
+	// records distinct inside the Ancient World filter.
+	PolytheistAncient Tradition = AncientWorld
 
 	GregorianCalendar CalendarSystem = "gregorian"
 	HebrewCalendar    CalendarSystem = "hebrew"
@@ -36,6 +42,17 @@ type Observance struct {
 	Historical       bool      `json:"historical,omitempty"`
 	HistoricalNote   string    `json:"historicalNote,omitempty"`
 	DateCertainty    string    `json:"dateCertainty,omitempty"`
+	CalendarCorpus   string    `json:"calendarCorpus,omitempty"`
+	NativeDateLabel  string    `json:"nativeDateLabel,omitempty"`
+	AttestationLayer string    `json:"attestationLayer,omitempty"`
+	Era              string    `json:"era,omitempty"`
+	Site             string    `json:"site,omitempty"`
+	ProjectionKind   string    `json:"projectionKind,omitempty"`
+	ProjectionStatus string    `json:"projectionStatus,omitempty"`
+	DateConfidence   string    `json:"dateConfidence,omitempty"`
+	AnchorLocation   string    `json:"anchorLocation,omitempty"`
+	DayBoundary      string    `json:"dayBoundary,omitempty"`
+	CatalogOnly      bool      `json:"catalogOnly,omitempty"`
 	SourceName       string    `json:"sourceName"`
 	SourceURL        string    `json:"sourceUrl"`
 	DayIndex         int       `json:"dayIndex,omitempty"`
@@ -148,20 +165,20 @@ type MonthReference struct {
 }
 
 type MonthResponse struct {
-	CalendarSystem  CalendarSystem `json:"calendarSystem"`
-	Year            int            `json:"year"`
-	Month           int            `json:"month"`
-	Label           string         `json:"label"`
-	StartDate       string         `json:"startDate"`
-	EndDate         string         `json:"endDate"`
-	Previous        MonthReference `json:"previous"`
-	Next            MonthReference `json:"next"`
-	FirstWeekday    int            `json:"firstWeekday"`
-	Days            []Day          `json:"days"`
-	ObservanceCount int            `json:"observanceCount"`
-	Coverage        []string       `json:"coverage"`
-	Location        Location       `json:"location"`
-	GeneratedAt     time.Time      `json:"generatedAt"`
+	CalendarSystem  CalendarSystem  `json:"calendarSystem"`
+	Year            int             `json:"year"`
+	Month           int             `json:"month"`
+	Label           string          `json:"label"`
+	StartDate       string          `json:"startDate"`
+	EndDate         string          `json:"endDate"`
+	Previous        *MonthReference `json:"previous"`
+	Next            *MonthReference `json:"next"`
+	FirstWeekday    int             `json:"firstWeekday"`
+	Days            []Day           `json:"days"`
+	ObservanceCount int             `json:"observanceCount"`
+	Coverage        []string        `json:"coverage"`
+	Location        Location        `json:"location"`
+	GeneratedAt     time.Time       `json:"generatedAt"`
 }
 
 type ObservanceIndex struct {

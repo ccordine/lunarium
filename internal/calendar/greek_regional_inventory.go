@@ -1,0 +1,180 @@
+package calendar
+
+const (
+	delphiOfficialFestivalSource = "https://delphi.culture.gr/archaelogical-site/site-history/"
+	olympiaOfficialGamesSource   = "https://odysseus.culture.gr/h/3/eh351.jsp?obj_id=2358"
+	spartaHerodotusSource        = "https://www.perseus.tufts.edu/hopper/text?doc=Hdt.+7.206&lang=original"
+	spartaPausaniasHyakinthia    = "https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0160%3Abook%3D3%3Achapter%3D19"
+	spartaPausaniasGymnopaidiai  = "https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0160%3Abook%3D3%3Achapter%3D11"
+	delphiTheoxeniaSource        = "https://kclpure.kcl.ac.uk/portal/files/134416479/Athens_and_Delphi_in_the_BOWDEN_Accepted11August2020Publishedonline28August2020_GOLD_VoR_CC_BY_.pdf"
+	delphiPlutarchFestivalSource = "https://lyceum.quest/read/tlg0007.tlg084b.perseus-grc4"
+	argiveHeraiaSource           = "https://classical-inquiries.chs.harvard.edu/on-the-festival-of-the-goddess-hera-at-the-heraion-overlooking-the-plain-of-argos/"
+	boeotianDaidalaSource        = "https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0160%3Abook%3D9"
+)
+
+func greekRegionalRecord(
+	id, name string,
+	communities []string,
+	category, summary, meaning, nativeDate, layer, era, site, projectionKind,
+	projectionStatus, confidence, anchor, boundary, sourceName, sourceURL, caveat string,
+	elements, texts []string,
+) ancientCatalogRecord {
+	return ancientCatalogRecord{
+		ID:               id,
+		Name:             name,
+		Communities:      communities,
+		Category:         category,
+		Summary:          summary,
+		Meaning:          meaning,
+		AttestedElements: elements,
+		Texts:            texts,
+		Origin:           "Greek literary, inscriptional, and archaeological evidence",
+		Status:           "Historical festival record; no continuous modern observance asserted",
+		HistoricalNote:   caveat,
+		CalendarCorpus:   "Regional and Panhellenic Greek calendars",
+		NativeDateLabel:  nativeDate,
+		AttestationLayer: layer,
+		Era:              era,
+		Site:             site,
+		ProjectionKind:   projectionKind,
+		ProjectionStatus: projectionStatus,
+		DateConfidence:   confidence,
+		AnchorLocation:   anchor,
+		DayBoundary:      boundary,
+		SourceName:       sourceName,
+		SourceURL:        sourceURL,
+	}
+}
+
+var greekRegionalInventoryRecords = []ancientCatalogRecord{
+	greekRegionalRecord(
+		"greek-pythian-games-delphi", "Pythian Games at Delphi", []string{"Delphic, Amphictyonic, and visiting Greek communities"},
+		"Panhellenic festival and games",
+		"Delphi's official archaeological-site history places the reorganized Pythian Games in Boukatios, every fourth year, in the third year of each Olympiad; it describes a six-to-eight-day program.",
+		"Music, athletic competition, and honors for Apollo made Delphi one of the major Panhellenic meeting places.",
+		"Delphic Boukatios; every fourth year in the third Olympiad year; source-reported duration six to eight days",
+		"Institutional synthesis of Delphic literary, inscriptional, and archaeological evidence after the reorganization traditionally dated to 586 BCE",
+		"Archaic period onward; the program and political administration changed over time", "Sanctuary of Apollo, Delphi",
+		"native-month-and-cycle-only", "Catalog-only: Boukatios and the Olympiad-cycle relation are retained, but no numbered Delphic day or automatic proleptic date is supplied.",
+		"High for the four-year cycle and Boukatios placement in the cited institutional account; exact days not supplied", "Delphi, Phocis", "Local Greek lunisolar day; precise day boundary not supplied by the cited source",
+		"Hellenic Ministry of Culture · Archaeological Site of Delphi · Site history", delphiOfficialFestivalSource,
+		"The official account reports an earlier nine-year form and a later four-year Pythian cycle. This record describes the reorganized games and does not flatten the two phases or turn Boukatios into a fixed modern month.",
+		[]string{"Musical contests", "Athletic contests", "Panhellenic gathering", "Apollo's Delphic cult"}, []string{"Delphic institutional and archaeological record"},
+	),
+	greekRegionalRecord(
+		"greek-olympic-games-olympia", "Olympic Games at Olympia", []string{"Elean organizers and visiting Greek communities"},
+		"Panhellenic festival and games",
+		"The official Olympia archaeological-site account describes the Olympic Games as held every four years in honor of Zeus.",
+		"The recurring gathering joined sacrifice, competition, civic display, and a shared Olympiad chronology at Zeus's sanctuary.",
+		"Elean local calendar within a four-year Olympiad cycle; exact local month-day is not projected here",
+		"Institutional archaeological-site synthesis; individual events and the program developed across historical phases",
+		"Archaic through Roman imperial periods, with changing programs", "Sanctuary of Zeus, Olympia, Elis",
+		"native-cycle-only", "Catalog-only: the four-year cycle is recorded without inventing a year-independent Gregorian date or a single unchanged ancient program.",
+		"High for the quadrennial cycle and Olympian location; exact local date intentionally unresolved", "Olympia, Elis", "Local Elean lunisolar day; precise boundary and numbered date not supplied here",
+		"Hellenic Ministry of Culture · Archaeological Site of Olympia", olympiaOfficialGamesSource,
+		"An Olympiad is a historical cycle, not a self-sufficient modern date conversion. A projection would require a selected chronology, phase, and reconstruction of the Elean calendar.",
+		[]string{"Sacrifice for Zeus", "Athletic contests", "Panhellenic assembly"}, []string{"Olympia's archaeological and institutional record"},
+	),
+	greekRegionalRecord(
+		"greek-spartan-karneia", "Karneia at Sparta", []string{"Spartan and wider Dorian communities"},
+		"Spartan festival of Apollo Karneios",
+		"Herodotus reports that the Karneia constrained the timing of full Spartan mobilization during Xerxes' invasion, showing the festival's civic and calendrical force.",
+		"The festival of Apollo Karneios ordered communal and military time in Sparta; the cited passage does not provide a numbered local day.",
+		"Spartan local-calendar Karneia; no numbered day retained from Herodotus 7.206",
+		"Herodotus' fifth-century BCE historical narrative about the 480 BCE campaign",
+		"Classical-period witness to an older Spartan/Dorian cult", "Sparta, Laconia",
+		"named-native-festival-without-day", "Catalog-only: the primary passage establishes the festival's calendrical consequence, not a universal Gregorian date.",
+		"High that Karneia is the named Spartan festival in the passage; exact date and full ritual program not established there", "Sparta, Laconia", "Spartan local lunisolar day; exact boundary and day absent from the cited passage",
+		"Perseus Digital Library · Herodotus 7.206", spartaHerodotusSource,
+		"Herodotus also mentions the Olympic festival in the same campaign context. That synchronism is not used to manufacture an exact recurring date, and later month-equivalents are not silently substituted for Spartan evidence.",
+		[]string{"Civic festival obligation", "Constraint on military mobilization"}, []string{"Herodotus, Histories 7.206"},
+	),
+	greekRegionalRecord(
+		"greek-spartan-hyakinthia", "Hyakinthia at Amyklai", []string{"Spartan and Amyklaian communities"},
+		"Spartan-Amyklaian festival of Hyakinthos and Apollo",
+		"Pausanias describes offerings to Hyakinthos at his altar before the sacrifice made to Apollo at Amyklai.",
+		"The ritual sequence placed commemoration of Hyakinthos beside the public cult of Apollo at Amyklai.",
+		"Amyklaian/Spartan local festival sequence; no numbered month-day in Pausanias 3.19.3",
+		"Second-century CE periegetic description of an older sanctuary and its local ritual",
+		"Roman-period literary witness to a longstanding Laconian festival", "Amyklai, Laconia",
+		"named-native-festival-without-day", "Catalog-only: the local ritual order is retained, but no exact date or unchanged annual program is reconstructed from the passage.",
+		"High for the altar sequence described by Pausanias; exact calendar placement unavailable in the cited passage", "Amyklai near Sparta, Laconia", "Local Laconian lunisolar day; exact boundary and date not stated",
+		"Perseus Digital Library · Pausanias 3.19.3", spartaPausaniasHyakinthia,
+		"Pausanias is a much later witness than the Classical period. The record identifies that source layer and does not add speculative seasonal or vegetation meanings.",
+		[]string{"Offerings to Hyakinthos", "Subsequent sacrifice to Apollo", "Cult at Amyklai"}, []string{"Pausanias, Description of Greece 3.19.3"},
+	),
+	greekRegionalRecord(
+		"greek-spartan-gymnopaidiai", "Gymnopaidiai at Sparta", []string{"Spartan civic communities and youth choruses"},
+		"Spartan choral and civic festival",
+		"Pausanias locates the Gymnopaidiai in the Spartan agora and describes choruses of youths performing songs in honor of Apollo.",
+		"Choral performance placed trained youth and civic order before Apollo in Sparta's public center.",
+		"Spartan local-calendar festival; no numbered month-day or recurrence rule in Pausanias 3.11.9",
+		"Second-century CE description of Spartan monuments and festival performance",
+		"Roman-period literary witness to a Spartan civic festival", "Agora, Sparta, Laconia",
+		"named-native-festival-without-day", "Catalog-only: the passage supports a named local festival and choral practice, not a modern date or complete historical program.",
+		"High for the named festival and choral setting; date and recurrence not established by the cited passage", "Sparta, Laconia", "Spartan local lunisolar day; exact boundary and day absent",
+		"Perseus Digital Library · Pausanias 3.11.9", spartaPausaniasGymnopaidiai,
+		"The source is used only for what it says: place, name, and choral performance. The catalog does not infer a numbered day, annual recurrence, or a fixed summer equivalent from that passage alone.",
+		[]string{"Choruses of youths", "Songs for Apollo", "Performance in the Spartan agora"}, []string{"Pausanias, Description of Greece 3.11.9"},
+	),
+	greekRegionalRecord(
+		"greek-delphic-theoxenia", "Theoxenia at Delphi", []string{"Delphic community and visiting sacred delegations"},
+		"Delphic festival of divine hospitality",
+		"The Delphic Theoxenia brought sacrifice and distribution of meat together with sacred delegations; epigraphic evidence places it in the Delphic month Theoxenios.",
+		"The festival represented hospitality for the gods while connecting Delphi to participating communities through sacrifice and theoria.",
+		"Delphic month Theoxenios; exact numbered day unresolved in the cited study",
+		"Classical and Hellenistic inscriptional evidence analyzed in an institutional scholarly study",
+		"Classical and Hellenistic Delphic evidence", "Sanctuary of Apollo, Delphi",
+		"native-month-only", "Catalog-only: Theoxenios is retained as a Delphic month, not equated to one fixed Gregorian month or day.",
+		"High for festival and native month; exact numbered day unresolved", "Delphi, Phocis", "Delphic lunisolar day; exact boundary and numbered date unresolved",
+		"King's College London Pure · Athens and Delphi in the Classical and Hellenistic periods", delphiTheoxeniaSource,
+		"Greek month names and alignments differed by polis and were subject to intercalation. The evidence does not license a universal Greek or fixed modern Theoxenia date.",
+		[]string{"Sacrifice", "Distribution of sacrificial meat", "Reception of sacred delegations"}, []string{"Delphic inscriptions concerning the Theoxenia and theoroi"},
+	),
+	greekRegionalRecord(
+		"greek-delphic-septerion", "Septerion at Delphi", []string{"Delphic sanctuary community"},
+		"Delphic source-reported cycle festival",
+		"Plutarch groups the Septerion with the Herois and Charila as Delphic festivals observed at eight-year intervals in his account of local rites.",
+		"In Plutarch's interpretation, the rite dramatized Apollo's conflict with Python and subsequent purification.",
+		"Source-reported ennaeteric cycle: an eight-year interval in Plutarch's account; exact month and day unresolved",
+		"Plutarch's Roman-period account of Delphic ritual and its local interpretation",
+		"Roman-period literary witness to an older Delphic cycle", "Delphi and the Vale of Tempe in Plutarch's narrative",
+		"source-reported-cycle-only", "Catalog-only: the source-reported interval is preserved without projecting a modern recurrence or resolving the inclusive ancient cycle terminology into automatic dates.",
+		"High that Plutarch reports a cyclical Delphic rite; historical development, exact phase, and numbered date unresolved", "Delphi, Phocis", "Delphic lunisolar ritual cycle; exact day and boundary not supplied",
+		"Lyceum text corpus · Plutarch, Greek Questions 12", delphiPlutarchFestivalSource,
+		"This is a later literary interpretation, not a complete contemporary festival calendar. 'Every eight years' is retained as Plutarch's report, while ennaeteric inclusive counting and the starting epoch remain unprojected.",
+		[]string{"Dramatic representation", "Ritual flight and purification in Plutarch's account"}, []string{"Plutarch, Greek Questions 12"},
+	),
+	greekRegionalRecord(
+		"greek-argive-heraia", "Heraia at the Argive Heraion", []string{"Argive communities and participants in Hera's sanctuary cult"},
+		"Argive festival and procession of Hera",
+		"The Center for Hellenic Studies' source study describes a grand procession from Argos to the Heraion and a communal sacrifice for Hera.",
+		"Procession and sacrifice linked the city and plain of Argos to Hera's extra-urban sanctuary.",
+		"Argive local festival cycle; exact month-day and secure recurrence rule not asserted by the cited study",
+		"Scholarly reading of ancient testimony and the sanctuary landscape",
+		"Ancient Argive practice discussed through literary and archaeological evidence", "Heraion overlooking the Argive plain",
+		"named-native-festival-without-day", "Catalog-only: the festival, route, and sacrifice are recorded without choosing among disputed calendar reconstructions.",
+		"High for the Argive procession and sacrifice; exact native date and cycle unresolved here", "Argos and the Argive Heraion", "Argive lunisolar day; exact boundary and date unresolved",
+		"Harvard Center for Hellenic Studies · Festival of Hera at the Argive Heraion", argiveHeraiaSource,
+		"The record is intentionally not assigned a fixed penteteric or Gregorian date. Distinct Argive rites and later game titles should not be collapsed without source-specific evidence.",
+		[]string{"Procession from Argos to the Heraion", "Communal sacrifice for Hera"}, []string{"Ancient testimony and archaeological context discussed by the Center for Hellenic Studies"},
+	),
+	greekRegionalRecord(
+		"greek-boeotian-daidala", "Little and Great Daidala of Boeotia", []string{"Plataian and wider Boeotian communities"},
+		"Boeotian local and federative festival cycle",
+		"Pausanias describes a Little Daidala at Plataia at an interval he says he cannot calculate exactly, and a Great Daidala shared among Boeotian communities after a source-reported sixty-year cycle reckoned from a fifty-nine-year interval.",
+		"The rites used wooden images and a federative distribution among Boeotian communities in a cycle tied to Hera's reconciliation with Zeus.",
+		"Little Daidala: approximately each sixth year in Pausanias' uncertain calculation; Great Daidala: source-reported fifty-nine-year interval/sixtieth-year observance; exact epoch and day unresolved",
+		"Pausanias 9.3, a second-century CE account explicitly uncertain about one interval and precise about the larger tally",
+		"Roman-period literary witness to Boeotian local and federative rites", "Plataia, Mount Kithairon, and participating Boeotian communities",
+		"source-reported-variable-cycles", "Catalog-only: both source-reported cycles and Pausanias' uncertainty are retained; neither is converted into an automated modern recurrence.",
+		"High for Pausanias' report; low to moderate for reconstructing exact historical intervals, epoch, or date", "Plataia and Mount Kithairon, Boeotia", "Boeotian lunisolar festival cycle; exact day and boundary not supplied",
+		"Perseus Digital Library · Pausanias 9.3", boeotianDaidalaSource,
+		"Pausanias says he could not calculate the Little Daidala interval exactly. His larger fifty-nine-year tally is a source claim, not enough to generate dates without an epoch; both limitations remain visible.",
+		[]string{"Selection of wooden daidala", "Distribution among Boeotian communities", "Procession and sacrifice in the Great Daidala"}, []string{"Pausanias, Description of Greece 9.3"},
+	),
+}
+
+func init() {
+	ancientCatalogRecords = append(ancientCatalogRecords, greekRegionalInventoryRecords...)
+}

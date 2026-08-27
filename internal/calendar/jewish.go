@@ -60,6 +60,7 @@ func jewishObservances(date time.Time) []Observance {
 	case observedHebrewFast(date, h, 7, 3, false):
 		event := jewishEvent("Fast of Gedaliah", "Fast", "A minor fast mourns the assassination of Gedaliah and the collapse of the remaining Judean community after the First Temple's destruction.", "The fast reflects on political violence, communal fracture, and the consequences of hatred.", []string{"Daytime fasting in traditional practice", "Selichot", "Torah reading"}, []string{"Jeremiah 40–41"})
 		event.DateNote = "Postponed to Sunday when 3 Tishrei falls on Shabbat."
+		applyFourDestructionFastsLayer(&event, "The Fast of the Seventh Month", false)
 		addDaytimeFast(event)
 	case h.Month == 7 && h.Day == 10:
 		event := jewishEvent("Yom Kippur", "High Holy Day", "The Day of Atonement is devoted to fasting, confession, prayer, and reconciliation.", "Human beings seek forgiveness from God while harms between people require direct repair.", []string{"Approximately 25-hour fast", "Kol Nidrei", "Five prayer services", "Confession", "Ne'ilah"}, []string{"Leviticus 16", "Isaiah 57:14–58:14", "Jonah"})
@@ -83,6 +84,13 @@ func jewishObservances(date time.Time) []Observance {
 		markJewishLayer(&event, "Torah", "Still observed; Temple rite inactive", "Received fixed-calendar date")
 		event.Rank = "Yom Tov"
 		add(event)
+		israel := jewishEvent("Simchat Torah · Israel", "Festival", "Jewish communities following the Israel festival cycle complete and immediately restart the annual Torah-reading cycle on Shemini Atzeret.", "Completion becomes beginning; Israel's one-day festival pattern joins Torah celebration to the eighth-day assembly.", []string{"Dancing with Torah scrolls", "Hakafot", "Reading Deuteronomy's end and Genesis' beginning"}, []string{"Deuteronomy 33:1–34:12", "Genesis 1:1–2:3"})
+		israel.Communities = []string{"Jewish communities in Israel and communities following Israel's festival cycle"}
+		markJewishLayer(&israel, "Post-Talmudic annual Torah-reading cycle", "Still observed in Israel", "Received Israel festival placement")
+		israel.Rank = "Yom Tov"
+		israel.DateNote = "Observed together with Shemini Atzeret on 22 Tishrei in Israel; diaspora communities celebrate Simchat Torah on 23 Tishrei."
+		israel.HistoricalNote = "The annual reading-cycle completion and the name Simchat Torah are post-Talmudic developments, distinct from the Torah's appointment of Shemini Atzeret."
+		add(israel)
 	case h.Month == 7 && h.Day == 23:
 		event := jewishEvent("Simchat Torah · Diaspora", "Festival", "Diaspora communities complete and immediately restart the annual Torah-reading cycle.", "Completion becomes beginning; Torah is celebrated through embodied joy and communal participation.", []string{"Dancing with Torah scrolls", "Hakafot", "Reading Deuteronomy's end and Genesis' beginning"}, []string{"Deuteronomy 33:1–34:12", "Genesis 1:1–2:3"})
 		event.Rank = "Yom Tov"
@@ -98,6 +106,7 @@ func jewishObservances(date time.Time) []Observance {
 		events = append(events, spanOccurrence(event, date, start, 8))
 	case h.Month == 10 && h.Day == 10:
 		event := jewishEvent("Tenth of Tevet · Asarah B'Tevet", "Fast", "A minor fast marks the beginning of the Babylonian siege of Jerusalem.", "The day remembers how destruction develops over time and invites attention before crisis becomes irreversible.", []string{"Daytime fasting in traditional practice", "Selichot", "Torah reading"}, []string{"2 Kings 25:1–4", "Zechariah 8:19"})
+		applyFourDestructionFastsLayer(&event, "The Fast of the Tenth Month", false)
 		addDaytimeFast(event)
 	case h.Month == 11 && h.Day == 15:
 		event := jewishEvent("Tu BiShvat", "Festival", "The new year for trees has become a celebration of fruit, land, ecological responsibility, and mystical symbolism.", "Kabbalists in Safed developed a fruit-and-wine seder contemplating four worlds and the flow of divine vitality.", []string{"Eating fruits of the Land of Israel", "Tu BiShvat seder", "Ecological learning and planting"}, []string{"Deuteronomy 8:7–10"})
@@ -155,10 +164,12 @@ func jewishObservances(date time.Time) []Observance {
 	case observedHebrewFast(date, h, 4, 17, false):
 		event := jewishEvent("Fast of the Seventeenth of Tammuz", "Fast", "A minor fast begins the Three Weeks of mourning leading to Tisha B'Av.", "Breached walls become an image for communal vulnerability and the early signs of destruction.", []string{"Daytime fasting in traditional practice", "Selichot", "Beginning Three Weeks customs"}, []string{"Zechariah 8:19"})
 		event.DateNote = "Postponed to Sunday when 17 Tammuz falls on Shabbat."
+		applyFourDestructionFastsLayer(&event, "The Fast of the Fourth Month", false)
 		addDaytimeFast(event)
 	case observedHebrewFast(date, h, 5, 9, false):
 		event := jewishEvent("Tisha B'Av", "Major fast", "The Ninth of Av mourns the destruction of both Temples and other catastrophes in Jewish memory.", "Collective lament refuses to rush grief and asks how hatred, violence, and exile are remembered.", []string{"Approximately 25-hour fast", "Reading Lamentations", "Sitting low", "Kinot lament poems"}, []string{"Book of Lamentations"})
 		event.DateNote = "Postponed to Sunday when 9 Av falls on Shabbat. Health and safety exceptions apply."
+		applyFourDestructionFastsLayer(&event, "The Fast of the Fifth Month", true)
 		add(event)
 	case h.Month == 5 && h.Day == 15:
 		event := jewishEvent("Tu B'Av", "Minor festival", "An ancient day of matchmaking and reconciliation has become a celebration of love.", "After Tisha B'Av, the date turns gently toward consolation, relationship, and renewal.", []string{"Celebration of love", "Music and gathering", "Omitting penitential prayers"}, nil)
@@ -172,6 +183,7 @@ func jewishObservances(date time.Time) []Observance {
 	events = append(events, templeEraRabbinicLayers(date, h)...)
 	events = append(events, fastOfFirstborn(date, h)...)
 	events = append(events, historicalJewishObservances(date, h)...)
+	events = append(events, sourceBoundJewishObservances(date, h)...)
 	return events
 }
 

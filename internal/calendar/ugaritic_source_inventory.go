@@ -1,0 +1,136 @@
+package calendar
+
+const (
+	ugaritInstitutionalInventory = "https://dornsife.usc.edu/wsrp-temp/wp-content/uploads/sites/155/2023/05/Ugaritic-Texts.pdf"
+	ugaritPardeeRitualEdition    = "https://www.mission-ougarit.fr/wp-content/pdf/mission_ougarit_publication_rso_121.pdf"
+)
+
+func ugariticSourceRecord(
+	id, name, category, summary, meaning, nativeDate, layer, projectionKind,
+	projectionStatus, confidence, status, caveat, sourceName, sourceURL string,
+	elements, texts []string,
+) ancientCatalogRecord {
+	return ancientCatalogRecord{
+		ID:               id,
+		Name:             name,
+		Communities:      []string{"Late Bronze Age Ugaritic royal, palace, and temple communities"},
+		Category:         category,
+		Summary:          summary,
+		Meaning:          meaning,
+		AttestedElements: elements,
+		Texts:            texts,
+		Origin:           "Ugaritic alphabetic ritual tablet",
+		Status:           status,
+		HistoricalNote:   caveat,
+		CalendarCorpus:   "Ugaritic ritual tablets",
+		NativeDateLabel:  nativeDate,
+		AttestationLayer: layer,
+		Era:              "Late Bronze Age, approximately thirteenth century BCE",
+		Site:             "Ugarit (Ras Shamra)",
+		ProjectionKind:   projectionKind,
+		ProjectionStatus: projectionStatus,
+		DateConfidence:   confidence,
+		AnchorLocation:   "Ugarit (Ras Shamra), Syria",
+		DayBoundary:      "Evening; local lunisolar month where calendrical wording survives",
+		SourceName:       sourceName,
+		SourceURL:        sourceURL,
+	}
+}
+
+var ugariticSourceInventoryRecords = []ancientCatalogRecord{
+	ugariticSourceRecord(
+		"ugarit-unnamed-month-ritual-146", "Unnamed-Month Full-Moon Ritual · KTU 1.46", "Ugaritic calendar-bearing sacrificial ritual",
+		"KTU 1.46 (RS 1.009) preserves a purification and sacrificial sequence for major festivals of an unnamed month, with reconstructed full-moon timing comparable to KTU 1.109.",
+		"The tablet adds a second calendar-bearing witness while making the fragmentary reconstruction itself visible.",
+		"Unnamed month; reconstructed sequence includes royal washing around day 14, a full-moon rite around day 14 or 15, and a possible later day-17 boundary",
+		"KTU 1.46 / RS 1.009, a fragmentary ritual whose proposed joins and line restorations have been debated",
+		"fragmentary-native-lunar-sequence", "Catalog-only: the month name is lost, the tablet reconstruction is debated, and no absolute or recurring modern date can be derived.",
+		"High that the tablet is calendar-bearing ritual; moderate for reconstructed joins and exact day assignments",
+		"Historical calendar-bearing ritual tablet; no continuous modern observance asserted",
+		"Pardee's edition and earlier article explicitly discuss hypothetical reconstruction of RS 1.009. Restored lines are not presented as undamaged text, and this Ugaritic rite is not generalized into a pan-Canaanite holiday.",
+		"Mission de Ras Shamra · Pardee, Les textes rituels", ugaritPardeeRitualEdition,
+		[]string{"Royal ritual purification", "Sacrificial offerings", "Full-moon festival sequence in the reconstruction"}, []string{"KTU 1.46", "RS 1.009"},
+	),
+	ugariticSourceRecord(
+		"ugarit-unnamed-month-ritual-109", "Unnamed-Month Major-Festival Sequence · KTU 1.109", "Ugaritic calendar-bearing sacrificial ritual",
+		"KTU 1.109 (RS 24.253) preserves part of the major festivals of an unnamed month, including royal washing on day 14 and sacrifice on the day of the full moon.",
+		"Numbered relative days show how the royal cult used the local lunar month even though its month name and absolute year are lost.",
+		"Unnamed month: day 14 royal washing; full-moon day follows in the sequence; further rites extend through at least day 17, and the tablet may cover more than one month",
+		"KTU 1.109 / RS 24.253, a prescriptive list of sacrifices with partial chronological rubrics",
+		"partial-native-full-moon-sequence", "Catalog-only: relative days are retained, but a lost month name and absent historical year prevent a Gregorian or annual projection.",
+		"High for the preserved relative sequence and full-moon rubric; month identity and the tablet's full temporal span are uncertain",
+		"Historical calendar-bearing ritual tablet; no continuous modern observance asserted",
+		"The institutional inventory calls this a portion of major festivals of an unnamed month. It is not promoted into a named annual holiday, and the broader Ugaritic month order remains incomplete.",
+		"Mission de Ras Shamra · Pardee, Les textes rituels", ugaritPardeeRitualEdition,
+		[]string{"Royal washing", "Full-moon sacrifices", "Offerings to Baal of Saphon and other recipients in the preserved sequence"}, []string{"KTU 1.109", "RS 24.253"},
+	),
+	ugariticSourceRecord(
+		"ugarit-palace-processional-143", "Palace Processional Sacrifice · KTU 1.43", "Ugaritic ritual-document record",
+		"KTU 1.43 records a palace ritual with a series of offerings accompanying cultic processions.",
+		"The tablet documents processional cult work at Ugarit without itself proving a separately named annual holiday.",
+		"No annual month or numbered day established by the cited institutional inventory",
+		"KTU 1.43 / RS 1.005, cataloged as a palace ritual sacrifice",
+		"ritual-document-without-annual-date", "Discoverable as a ritual document only; no annual recurrence or modern date is inferred.",
+		"High document classification and processional content; no calendar date or annual-festival status established",
+		"Historical ritual document; not asserted as a named recurring holiday",
+		"Ritual texts and festival calendars are not synonyms. This record exposes the tablet without adding a month, day, recurrence, or pan-Canaanite scope that the cited inventory does not supply.",
+		"USC West Semitic Research Project · Ugaritic Texts inventory", ugaritInstitutionalInventory,
+		[]string{"Palace offerings", "Cultic processions"}, []string{"KTU 1.43", "RS 1.005"},
+	),
+	ugariticSourceRecord(
+		"ugarit-civic-atonement-140", "Civic Expiatory Ritual · KTU 1.40", "Ugaritic ritual-document record",
+		"KTU 1.40 preserves an atonement ritual for the people of Ugarit in which the king and queen stand at the center of a national sacrificial context.",
+		"The text witnesses collective expiation and royal involvement while leaving recurrence and calendar placement unproved.",
+		"No annual month or numbered day established by the cited institutional inventory",
+		"KTU 1.40 / RS 1.002, cataloged as an expiatory ritual",
+		"ritual-document-without-annual-date", "Discoverable as a ritual document only; no annual recurrence or modern date is inferred.",
+		"High document classification and civic-atonement content; no calendar date or annual-festival status established",
+		"Historical ritual document; not asserted as a named recurring holiday",
+		"The text's collective scope does not by itself make it an annual national festival. No Ugaritic-to-Gregorian date or broader Canaanite continuity is claimed.",
+		"USC West Semitic Research Project · Ugaritic Texts inventory", ugaritInstitutionalInventory,
+		[]string{"Atonement for the people of Ugarit", "Royal household named within the sacrificial rite"}, []string{"KTU 1.40", "RS 1.002"},
+	),
+	ugariticSourceRecord(
+		"ugarit-ancestral-kings-113", "Royal Liturgy with Ancestral Kings · KTU 1.113", "Ugaritic ritual-document record",
+		"KTU 1.113 is cataloged as a Ugaritic king list embedded in royal liturgy with ancestral kings.",
+		"It preserves royal ancestral cult material without establishing one yearly commemoration date.",
+		"No annual month or numbered day established by the cited institutional inventory",
+		"KTU 1.113 / RS 24.257, royal liturgy and king-list tablet",
+		"ritual-document-without-annual-date", "Discoverable as a royal-liturgical document only; no annual recurrence or modern date is inferred.",
+		"High royal-liturgical classification; calendar placement and recurrence unavailable",
+		"Historical royal-liturgical document; not asserted as a named recurring holiday",
+		"A royal ancestral liturgy may belong to cultic practice without being an independently named annual festival. The catalog retains that distinction.",
+		"USC West Semitic Research Project · Ugaritic Texts inventory", ugaritInstitutionalInventory,
+		[]string{"Royal liturgy", "Ancestral king list"}, []string{"KTU 1.113", "RS 24.257"},
+	),
+	ugariticSourceRecord(
+		"ugarit-royal-sacrifice-115", "Royal Sacrifice to Diverse Gods · KTU 1.115", "Ugaritic ritual-document record",
+		"KTU 1.115 records the king offering sacrifice to diverse gods.",
+		"The tablet documents royal sacrificial responsibility but supplies no secure annual holiday or date in the cited inventory.",
+		"No annual month or numbered day established by the cited institutional inventory",
+		"KTU 1.115 / RS 24.260, royal sacrificial ritual",
+		"ritual-document-without-annual-date", "Discoverable as a royal ritual document only; no annual recurrence or modern date is inferred.",
+		"High royal-sacrificial classification; calendar placement and recurrence unavailable",
+		"Historical royal ritual document; not asserted as a named recurring holiday",
+		"A prescriptive sacrifice list does not establish its own annual festival cycle. Recipients and actions are retained without an invented date.",
+		"USC West Semitic Research Project · Ugaritic Texts inventory", ugaritInstitutionalInventory,
+		[]string{"Sacrifice by the king", "Offerings to multiple deities"}, []string{"KTU 1.115", "RS 24.260"},
+	),
+	ugariticSourceRecord(
+		"ugarit-athtartu-sacrifice-116", "Sacrificial Ritual of ʿAthtartu · KTU 1.116", "Ugaritic ritual-document record",
+		"KTU 1.116 is cataloged as a sacrificial ritual of ʿAthtartu.",
+		"The deity-specific ritual is kept visible without turning a ritual-tablet title into a proven annual feast.",
+		"No annual month or numbered day established by the cited institutional inventory",
+		"KTU 1.116 / RS 24.261, deity-specific sacrificial ritual",
+		"ritual-document-without-annual-date", "Discoverable as a deity-specific ritual document only; no annual recurrence or modern date is inferred.",
+		"High ritual and deity attribution in the institutional inventory; calendar placement and recurrence unavailable",
+		"Historical deity-specific ritual document; not asserted as a named recurring holiday",
+		"The catalog uses a cautious transliteration of ʿAthtartu and claims no date, frequency, or unchanged continuation outside Ugarit.",
+		"USC West Semitic Research Project · Ugaritic Texts inventory", ugaritInstitutionalInventory,
+		[]string{"Sacrificial ritual for ʿAthtartu"}, []string{"KTU 1.116", "RS 24.261"},
+	),
+}
+
+func init() {
+	ancientCatalogRecords = append(ancientCatalogRecords, ugariticSourceInventoryRecords...)
+}

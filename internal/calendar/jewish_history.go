@@ -283,5 +283,5 @@ func fastOfFirstborn(date time.Time, h hebrewDate) []Observance {
 }
 
 func sourceLayerSummary() string {
-	return "Torah-appointed times; Mishnah and Talmud calendar rules; all 35 entries or periods of Megillat Ta'anit; and its nine Temple-family wood-offering dates"
+	return "Torah-appointed times and the full 49-day Omer count; explicit Shemitah and unprojected Jubilee records; fixed, recurring, conditional, and institutional Mishnah/Talmud calendar rules; all 35 original entries or periods of Megillat Ta'anit; all 26 dates in the separately labeled printed Ma'amar Aharon appendix witness; and all nine Temple-family wood-offering dates"
 }

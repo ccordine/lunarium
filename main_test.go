@@ -32,7 +32,7 @@ func TestHebrewCalendarHandler(t *testing.T) {
 	if response.StartDate != "2026-08-14" || response.EndDate != "2026-09-11" || len(response.Days) != 29 {
 		t.Fatalf("response range = %s through %s with %d days", response.StartDate, response.EndDate, len(response.Days))
 	}
-	if response.Next != (calendar.MonthReference{Year: 5787, Month: 7, Label: "Tishrei 5787"}) {
+	if response.Next == nil || *response.Next != (calendar.MonthReference{Year: 5787, Month: 7, Label: "Tishrei 5787"}) {
 		t.Fatalf("next = %#v", response.Next)
 	}
 }
