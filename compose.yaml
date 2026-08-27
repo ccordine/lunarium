@@ -1,0 +1,35 @@
+name: lunarium
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lunarium:local
+    container_name: lunarium-app
+    restart: unless-stopped
+    init: true
+    expose:
+      - "8080"
+    networks:
+      devnet:
+        aliases:
+          - lunarium-app
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/api/v1/health"]
+      interval: 15s
+      timeout: 3s
+      start_period: 5s
+      retries: 4
+
+networks:
+  devnet:
+    name: dev-net
+    external: true

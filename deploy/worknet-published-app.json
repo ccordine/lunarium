@@ -1,0 +1,12 @@
+{
+  "container_name": "lunarium-app",
+  "hostname": "lunarium.worknet",
+  "name": "lunarium",
+  "ingress_mode": "docker_network",
+  "docker_network": "dev-net",
+  "upstream_host": "lunarium-app",
+  "upstream_port": 8080,
+  "tls_source": "worknet_ca",
+  "container_action": "none",
+  "apply": true
+}
